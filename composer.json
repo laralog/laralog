@@ -31,7 +31,7 @@
   "require": {
     "laravel/framework": ">=5.6",
     "jalle19/php-whitelist-check": "^1.0",
-    "barryvdh/laravel-cors": "^0.11.2"
+    "barryvdh/laravel-cors": "^0.11"
   },
   "require-dev": {
     "mockery/mockery": "~1.0",
