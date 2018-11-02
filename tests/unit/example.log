@@ -1,0 +1,7 @@
+[2018-08-27 15:17:37] local.info: WOAH 
+[2018-08-27 15:17:37] local.ERROR: test error 
+[2018-08-27 10:47:56] local.ERROR: Call to undefined method Whoops\Run::allowQuits() {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalThrowableError(code: 0): Call to undefined method Whoops\\Run::allowQuits() at /app/Http/Controllers/TestController.php:15)
+[stacktrace]
+#0 [internal function]: App\\Http\\Controllers\\TestController->test()
+#1 /laravel/framework/src/Illuminate/Routing/Controller.php(54): call_user_func_array(Array, Array)
+
