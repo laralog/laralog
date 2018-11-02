@@ -29,7 +29,7 @@
   "prefer-stable": true,
   "minimum-stability": "dev",
   "require": {
-    "laravel/framework": ">=5.6",
+    "laravel/framework": ">=5.2",
     "jalle19/php-whitelist-check": "^1.0",
     "barryvdh/laravel-cors": "^0.11"
   },
