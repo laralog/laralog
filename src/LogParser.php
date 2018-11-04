@@ -8,8 +8,8 @@ class LogParser
 {
     const LOG_SEPARATOR = '/(\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}([\+-]\d{4})?\])/';
     const CONTEXT = '/[a-zA-Z]{1,12}\.[a-zA-Z]{1,12}:/m';
-    const STACKTRACE = '/\[stacktrace\]/';
-
+    const STACKTRACE = '/\[stacktrace\]|Stack trace:/';
+    const MAX_FILE_SIZE = 31457280; //30 MB
 
     public function formatLogsToCollection(string $logContents)
     {
@@ -64,8 +64,25 @@ class LogParser
         ];
     }
 
-    private function formatStacktrace(string $stackTrace)
+    public function truncatedLogContents($path)
     {
-        //make stracktrace into an array
+        $handle = fopen($path, "r");
+        
+        $readFrom = filesize($path) - self::MAX_FILE_SIZE; //offset
+
+        fseek($handle, $readFrom); //set the file pointer to 50mb from the end of the file
+
+        $contents = fread($handle, self::MAX_FILE_SIZE);
+
+        //split on first complete log entry
+        $contents = preg_split(self::LOG_SEPARATOR, $contents, 2, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+        
+        //return everything after the first log entry, and prepend the first log entry's date (delimiter)
+        return $contents[1] . $contents[2];
+    }
+
+    public function isLogTooLarge($path)
+    {
+        return fileSize($path) > self::MAX_FILE_SIZE;
     }
 }
