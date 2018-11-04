@@ -42,6 +42,16 @@ class LogController extends Controller
 
         $logParser = new LogParser;
 
+        $filePath = $this->getLogDirectory() . $logBasename;
+
+        //check the file size, if the file is too big return an error
+        //max is 50mb, this is probably still way too big, but meh
+        if (fileSize($filePath) > 52428800) {
+            return response()->json([
+                'error' => 'File size is too big.'
+            ], 422);
+        }
+
         $log = file_get_contents($this->getLogDirectory() . $logBasename);
 
         $logEntries = $logParser->formatLogsToCollection($log);
@@ -49,6 +59,11 @@ class LogController extends Controller
         return response()->json([
             'log_entries' => $logEntries
         ]);
+    }
+
+    public function splitLog()
+    {
+        //split log based
     }
 
     private function getLogDirectory()
