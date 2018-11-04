@@ -15,6 +15,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Max File Size (MB)
+    |--------------------------------------------------------------------------
+    |
+    | The maximum size in megabytes of a log the package will return in a
+    | response. This is helpful to stop large log files being downloaded over
+    | HTTP. A small default of 5MB is set, to prevent slow internet connections
+    | from taking ages to load logs and to stop unneccessary data usage on
+    | 3g/4g/metered connections.
+    */
+    'max_file_size' => 5,
+
+    /*
+    |--------------------------------------------------------------------------
     | IP White List
     |--------------------------------------------------------------------------
     |
@@ -33,10 +46,11 @@ return [
     | Enable Trucated Logs
     |--------------------------------------------------------------------------
     |
-    | If log is bigger than the maximum allowed size of 30mb. Enabling this
-    | will fetch the last 30mb of the log, instead of returning an error.
+    | If log is bigger than the maximum allowed size enabling this
+    | will fetch the end of the log up to the maximum allowed size. e.g.
+    | A log is 50mMB, the maximum allowed log size is 5MB, if truncated logs is
+    | enabled, the last 5MB of the log will be returned.
     */
-
     'truncated_logs' => false
 
     /*

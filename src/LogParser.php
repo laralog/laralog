@@ -9,7 +9,13 @@ class LogParser
     const LOG_SEPARATOR = '/(\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}([\+-]\d{4})?\])/';
     const CONTEXT = '/[a-zA-Z]{1,12}\.[a-zA-Z]{1,12}:/m';
     const STACKTRACE = '/\[stacktrace\]|Stack trace:/';
-    const MAX_FILE_SIZE = 31457280; //30 MB
+
+    protected $maxFileSize;
+
+    public function __construct()
+    {
+        $this->maxFileSize = (config('laralog.max_file_size') * 1024 * 1024); //convert into bytes
+    }
 
     public function formatLogsToCollection(string $logContents)
     {
@@ -68,11 +74,11 @@ class LogParser
     {
         $handle = fopen($path, "r");
         
-        $readFrom = filesize($path) - self::MAX_FILE_SIZE; //offset
+        $readFrom = filesize($path) - $this->maxFileSize; //offset
 
         fseek($handle, $readFrom); //set the file pointer to 50mb from the end of the file
 
-        $contents = fread($handle, self::MAX_FILE_SIZE);
+        $contents = fread($handle, $this->maxFileSize);
 
         //split on first complete log entry
         $contents = preg_split(self::LOG_SEPARATOR, $contents, 2, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
@@ -83,6 +89,6 @@ class LogParser
 
     public function isLogTooLarge($path)
     {
-        return fileSize($path) > self::MAX_FILE_SIZE;
+        return fileSize($path) > $this->maxFileSize;
     }
 }
