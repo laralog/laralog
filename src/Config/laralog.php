@@ -30,6 +30,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Enable Trucated Logs
+    |--------------------------------------------------------------------------
+    |
+    | If log is bigger than the maximum allowed size of 30mb. Enabling this
+    | will fetch the last 30mb of the log, instead of returning an error.
+    */
+
+    'truncated_logs' => false
+
+    /*
+    |--------------------------------------------------------------------------
     | Log Directory
     |--------------------------------------------------------------------------
     |
