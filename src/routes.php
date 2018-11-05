@@ -3,9 +3,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Laralog\Laralog\LaralogMiddleware;
-use Barryvdh\Cors\HandleCors;
+use Laralog\Laralog\HandleCors;
 
-Route::prefix('/laralog')->group(function () {
+Route::group(['prefix' => 'laralog'], function () {
     Route::get('/available/logs', 'Laralog\Laralog\LogController@getAvailableLogs')
         ->middleware([HandleCors::class, LaralogMiddleware::class]);
     

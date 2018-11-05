@@ -21,7 +21,7 @@ class LogController extends Controller
             return preg_match('/.log$/', basename($file));
         })->map(function ($file) {
             return [
-                'size' => $file->getSize(),
+                'size' => filesize($file),
                 'basename' => basename($file)
             ];
         })
@@ -34,11 +34,11 @@ class LogController extends Controller
 
     public function getLog()
     {
-        $data = $this->validate(request(), [
+        $this->validate(request(), [
             'log_basename' => 'string|required'
         ]);
 
-        $logBasename = $data['log_basename'];
+        $logBasename = request('log_basename');
 
         $logParser = new LogParser;
 

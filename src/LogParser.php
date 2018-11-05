@@ -17,7 +17,7 @@ class LogParser
         $this->maxFileSize = (config('laralog.max_file_size') * 1024 * 1024); //convert into bytes
     }
 
-    public function formatLogsToCollection(string $logContents)
+    public function formatLogsToCollection($logContents)
     {
         $logs = preg_split(self::LOG_SEPARATOR, $logContents, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
         $formattedLogs = new Collection;
@@ -34,7 +34,7 @@ class LogParser
         return $formattedLogs;
     }
 
-    public function formatLogsToJson(string $logContents)
+    public function formatLogsToJson($logContents)
     {
         return $this->formatLogsToCollection($logContents)->toJson();
     }
@@ -75,9 +75,10 @@ class LogParser
         $handle = fopen($path, "r");
         
         $readFrom = filesize($path) - $this->maxFileSize; //offset
-
-        fseek($handle, $readFrom); //set the file pointer to 50mb from the end of the file
-
+        
+        //set the file pointer to maxfilesize distance from the end of the file
+        fseek($handle, $readFrom);
+        
         $contents = fread($handle, $this->maxFileSize);
 
         //split on first complete log entry
@@ -89,6 +90,6 @@ class LogParser
 
     public function isLogTooLarge($path)
     {
-        return fileSize($path) > $this->maxFileSize;
+        return filesize($path) > $this->maxFileSize;
     }
 }

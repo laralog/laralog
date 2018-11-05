@@ -15,7 +15,11 @@ class LaralogServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
+        if (method_exists($this, 'loadRoutesFrom')) {
+            $this->loadRoutesFrom(__DIR__.'/routes.php');
+        } else {
+            require __DIR__.'/routes.php';
+        }
         
         $this->publishes([
             __DIR__.'/Config/laralog.php' => config_path('laralog.php'),
