@@ -1,5 +1,5 @@
 {
-  "name": "laralog-app/laralog",
+  "name": "laralogapp/laralog",
   "description": "A package to work with laralog.app to allow easy access to your app's logs.",
   "type": "library",
   "license": "MIT",
