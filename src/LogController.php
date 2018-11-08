@@ -51,9 +51,9 @@ class LogController extends Controller
                 $log = $logParser->truncatedLogContents($filePath);
                 $logEntries = $logParser->formatLogsToCollection($log);
 
-                return response()->json([
-                    'log_entries' => $logEntries
-                ]);
+                $response = response()->json(['log_entries' => $logEntries], 200);
+                $response->headers->set('x-decompressed-content-length', strlen($response->getContent()));
+                return $response;
             }
 
             return response()->json([
@@ -66,9 +66,9 @@ class LogController extends Controller
 
         $logEntries = $logParser->formatLogsToCollection($log);
 
-        return response()->json([
-            'log_entries' => $logEntries
-        ]);
+        $response = response()->json(['log_entries' => $logEntries], 200);
+        $response->headers->set('x-decompressed-content-length', strlen($response->getContent()));
+        return $response;
     }
 
     public function splitLog()
