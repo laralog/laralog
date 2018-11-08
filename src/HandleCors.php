@@ -24,7 +24,7 @@ class HandleCors
             'allowedHeaders'         => ['*'],
             'allowedMethods'         => ['*'],
             'allowedOrigins'         => ['*'],
-            'exposedHeaders'         => [],
+            'exposedHeaders'         => ['Content-Length', 'X-Decompressed-Content-Length'],
             'maxAge'                 => 0,
             'supportsCredentials'    => false,
         ]);
