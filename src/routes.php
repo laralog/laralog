@@ -8,7 +8,13 @@ use Laralog\Laralog\HandleCors;
 Route::group(['prefix' => 'laralog'], function () {
     Route::get('/available/logs', 'Laralog\Laralog\LogController@getAvailableLogs')
         ->middleware([HandleCors::class, LaralogMiddleware::class]);
+
+    Route::options('/available/logs', 'Laralog\Laralog\LogController@getAvailableLogs')
+        ->middleware([HandleCors::class, LaralogMiddleware::class]);
     
     Route::get('/get/log', 'Laralog\Laralog\LogController@getLog')
+        ->middleware([HandleCors::class, LaralogMiddleware::class]);
+          
+    Route::options('/get/log', 'Laralog\Laralog\LogController@getAvailableLogs')
         ->middleware([HandleCors::class, LaralogMiddleware::class]);
 });

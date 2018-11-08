@@ -21,7 +21,7 @@ class HandleCors
     public function __construct()
     {
         $this->cors = new CorsService([
-            'allowedHeaders'         => ['Content-Type', 'X-Requested-With'],
+            'allowedHeaders'         => ['*'],
             'allowedMethods'         => ['*'],
             'allowedOrigins'         => ['*'],
             'exposedHeaders'         => [],
