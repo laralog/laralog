@@ -45,7 +45,6 @@ class LogController extends Controller
         $filePath = $this->getLogDirectory() . $logBasename;
 
         //check the file size, if the file is too big return an error
-        //max is 30mb, this is probably still way too big,
         if ($logParser->isLogTooLarge($filePath)) {
             if (config('laralog.truncated_logs')) {
                 $log = $logParser->truncatedLogContents($filePath);
