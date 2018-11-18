@@ -1,6 +1,6 @@
 # https://laralog.app
 
-This package is to be used in conjunction with https://laralog.app to enable free, simple and central remote viewing for Laravel logs.
+This package is can be used in conjunction with https://laralog.app to enable free, simple and central remote viewing for Laravel logs.
 
 The idea of this package is to provide a central interface where you can view your logs for all of your Laravel applications in an easy to read, responsive format.
 
@@ -12,10 +12,9 @@ Require laralogapp/laralog package and update your dependencies.
 
 ```$ composer require laralogapp/laralog```
 
-If you're using Laravel 5.4 and below you need to add the service provider to your ```config/app.php``` providers array.
+If you're using Laravel 5.4 and below you need to add the service provider to your ```config/app.php``` providers array otherwise autodiscovery is used. 
 
 ```Laralog\Laralog\LaralogServiceProvider::class```
-
 
 Publish the package's configuration
 
